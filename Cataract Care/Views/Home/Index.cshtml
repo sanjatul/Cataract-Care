@@ -1,0 +1,290 @@
+﻿
+@model IEnumerable<Cataract_Care.Models.Package>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    /* General Styles */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Background Container */
+    .background-container {
+        background: url('/images/70.png') no-repeat center center;
+        background-size: cover;
+        min-height: 100vh; /* Ensures the background covers the entire viewport height */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        height: 18rem; /* Fixed height for the hero section */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Cards Container */
+    .cards-container {
+        z-index: 1;
+        padding: 1rem 0;
+        min-height: 50rem; /* Minimum height to ensure at least two rows of cards */
+    }
+
+    /* Cards Styling */
+    .card {
+        background-color: rgba(171, 196, 255, 0.9); /* Semi-transparent background to let the image show through */
+        height: 23rem;
+        margin-bottom: 3rem;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2px; /* Add padding inside the card */
+        justify-content: space-between; /* Ensure content is spaced out, button sticks to the bottom */
+        text-align: center; /* Centers the text content inside the card */
+        overflow: hidden; /* Hide overflow to manage scrollable content */
+    }
+
+    .card-title {
+        font-weight: bold;
+    }
+
+    .btn {
+        margin-top: 1rem;
+        align-self: stretch; /* Make button full-width */
+        margin-bottom: 7px;
+    }
+
+    .list-group-item {
+        background-color: transparent;
+        border: none;
+    }
+
+    /* Scrollable Description */
+    .description {
+        max-height: 8rem; /* Limit height to control overflow */
+        overflow-y: auto; /* Allow vertical scrolling */
+        text-align: center;
+        padding: 0.5rem;
+    }
+
+    .description::-webkit-scrollbar {
+        display: none; /* Hide scrollbar for WebKit browsers */
+    }
+
+    .description {
+        -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+        scrollbar-width: none; /* Hide scrollbar for Firefox */
+    }
+
+    /* Container and Rows */
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 5rem;
+    }
+
+    .col-md-4 {
+        flex: 0 0 30%;
+        max-width: 30%;
+        margin-bottom: 1rem; /* Add some spacing between rows */
+    }
+
+    @@media screen and (max-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
+    /* Anchor Styling */
+    a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<div class="background-container">
+    <div class="hero-section">
+        <div class="text-center">
+            <h1>Discovering Clarity: Cataract Care</h1>
+            <h2>Together, Let's Illuminate Your Path to Clarity.</h2>
+            <p>
+                Unlocking the Power of Technology to Preserve Your Vision<br />
+                Welcome to Cataract Care, where cutting-edge technology meets compassionate care.
+            </p>
+            <p>
+             Upload Fundus Images and know the diagnsis result with the help of the state of the art Machine Learning technology.
+            </p>
+        </div>
+    </div>
+
+    <div class="container cards-container">
+        <div class="row">
+        @*     @foreach (var package in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card m-2 bg-gradient">
+                        <div class="card-title text-center pt-1"><h4>@package.PackageName</h4></div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Price: </b>@package.Price $</li>
+                            <li class="list-group-item">
+                                <b>Maximum Image Limit: </b>
+                                @(package.MaxPhotoLimit != null ? package.MaxPhotoLimit.ToString() : "Unlimited")
+                            </li>
+                            <li class="list-group-item">
+                                <b>Validity Period: </b>
+                                @(package.ValidityPeriod != null ? package.ValidityPeriod.ToString() : "Unlimited")
+                            </li>
+                        </ul>
+                        <p class="description">@package.Description</p>
+                        @if (ViewData["UserRole"]?.ToString() != "Admin")
+                        {
+
+                            @if (string.IsNullOrEmpty(ViewData["UserRole"]?.ToString()))
+                            {
+                                <div class="text-center">
+                                    <a href="/Identity/Account/Login" class="btn btn-primary">Subscribe</a>
+                                </div>
+                            }
+                            
+                            {
+                                <div class="text-center">
+                                    <button class="btn btn-primary" onclick="subscribe(@package.SubscriptionId,@package.Price)">Subscribe</button>
+
+                                </div>
+                            }
+
+                        }
+                    </div>
+                </div>
+            } *@
+
+
+            @foreach (var package in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card m-2 bg-gradient">
+                        <div class="card-title text-center pt-1"><h4>@package.PackageName</h4></div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Price: </b>@package.Price $</li>
+                            <li class="list-group-item">
+                                <b>Maximum Image Limit: </b>
+                                @(package.MaxPhotoLimit != null ? package.MaxPhotoLimit.ToString() : "Unlimited")
+                            </li>
+                            <li class="list-group-item">
+                                <b>Validity Period: </b>
+                                @(package.ValidityPeriod != null ? package.ValidityPeriod.ToString() : "Unlimited")
+                            </li>
+                        </ul>
+                        <p class="description">@package.Description</p>
+
+                        @if (string.IsNullOrEmpty(ViewData["UserRole"]?.ToString())) // If user role is empty (not logged in)
+                        {
+                            <div class="text-center">
+                                <a href="/Identity/Account/Login" class="btn btn-primary">Subscribe</a>
+                            </div>
+                        }
+                        else if (ViewData["UserRole"]?.ToString() == "Admin") // If user is an Admin
+                        {
+                            <!-- Admin should not see the Subscribe button -->
+                        }
+                        else if (ViewData["UserRole"]?.ToString() == "User") // If user is a normal User
+                        {
+                            if (string.IsNullOrEmpty(ViewData["isSubscribed"]?.ToString())) // Not subscribed
+                            {
+                                <div class="text-center">
+                                    <button class="btn btn-primary" onclick="subscribe(@package.SubscriptionId,@package.Price)">Subscribe</button>
+                                </div>
+                            }
+                            else if (ViewData["isSubscribed"]?.ToString() == "true") // Already subscribed
+                            {
+                                <!-- User is subscribed, no need to show Subscribe button -->
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function subscribe(subscriptionId, price) {
+            // Log the subscription ID (for debugging)
+            console.log("Subscribing to package with ID:", subscriptionId);
+
+            Swal.fire({
+                title: `Make Payement of ${price} \$`,
+                icon: 'warning',
+                input: 'text',  
+                inputPlaceholder: 'Enter your card number',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Make payment',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/UserSubscription/Subscribe/${subscriptionId}`,
+                        type: 'PUT',
+                        success: function (response) {
+                            // Check the data property in the response
+                            if (response.data === true) {
+                                Swal.fire({
+                                    title: "Good job!",
+                                    text: "Subscription successful!",
+                                    icon: "success"
+                                }).then(() => {
+                                    // Redirect to the UserSubscription controller's Index action
+                                    window.location.href = '/UserSubscription/Index';
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Oops!",
+                                    text: "Subscription failed. Please try again.",
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "An error occurred. Please try again later.",
+                                icon: "error"
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            // Check for success message in TempData
+            var successMessage = '@TempData["RegistrationSuccess"]';
+            if (successMessage) {
+                toastr.success(successMessage);
+            }
+
+        });
+    </script>
+}

@@ -1,0 +1,261 @@
+﻿@model Cataract_Care.Models.VM.DiagnosisVM
+
+@{
+    ViewData["Title"] = "Index";
+    var userSubscription = ViewData["Package"] as Cataract_Care.Models.UserSubscription;
+    bool isSubscriptionActive = userSubscription != null;
+}
+
+<div class="container">
+    <div class="card m-2">
+        <div class="card-title text-center p-1">
+            <h3>PROCESS IMAGE</h3>
+            <hr />
+        </div>
+        <div class="card-body">
+            @if (isSubscriptionActive)
+            {
+              @*   <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input hidden asp-for="UserSubscriptionId" class="form-control" value="@userSubscription.UserSubscriptionId"/>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <b><label asp-for="PatientName" class="control-label">PATIENT NAME</label></b>
+                                                <input required asp-for="PatientName" class="form-control" />
+                                                <span asp-validation-for="PatientName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <b><label asp-for="Age" class="control-label">AGE</label></b>
+                                                <input required asp-for="Age" class="form-control" />
+                                                <span asp-validation-for="Age" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <b><label asp-for="Gender" class="control-label">GENDER</label></b><br />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Gender" value="Male" id="maleRadio">
+                                                    <label class="form-check-label" for="maleRadio">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Gender" value="Female" id="femaleRadio">
+                                                    <label class="form-check-label" for="femaleRadio">Female</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Gender" value="Others" id="othersRadio">
+                                                    <label class="form-check-label" for="othersRadio">Others</label>
+                                                </div>
+                                                <span asp-validation-for="Gender" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <b><label asp-for="Eye" class="control-label"></label></b><br />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Eye" value="Left Eye" id="leftEyeRadio">
+                                                    <label class="form-check-label" for="leftEyeRadio">LEFT EYE</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Eye" value="Right Eye" id="rightEyeRadio">
+                                                    <label class="form-check-label" for="rightEyeRadio">RIGHT EYE</label>
+                                                </div>
+                                                <span asp-validation-for="Eye" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <b><label asp-for="EyeImage" class="control-label">UPLOAD EYE IMAGE</label></b>
+                                                <input required asp-for="EyeImage" class="form-control" />
+                                                <span asp-validation-for="EyeImage" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <div class="form-group">
+                                                <br />
+                                                <input type="submit" value="SUBMIT" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="card">
+                                <div class="card-title ps-2 pt-2">
+                                    <h5>SUBSCRIPTION DETAILS</h5>
+                                    <hr />
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><strong>PACKAGE NAME:</strong> @(userSubscription?.PackageName ?? "Not Available")</li>
+                                       
+                                        <li><strong>EXPIRY DATE:</strong> @(userSubscription?.ExpiresAt.HasValue == true ? userSubscription.ExpiresAt.Value.ToString("MM/dd/yyyy") : "Unlimited")</li>
+                                        <li><strong>PHOTO'S LEFT:</strong> @(userSubscription?.PhotoLimit.HasValue == true ? userSubscription.PhotoLimit.Value.ToString() : "Unlimited")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> *@
+
+
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input hidden asp-for="UserSubscriptionId" class="form-control" value="@userSubscription.UserSubscriptionId" />
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <b><label asp-for="PatientName" class="control-label">PATIENT NAME</label></b>
+                                                <input required asp-for="PatientName" class="form-control" />
+                                                <span asp-validation-for="PatientName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <b><label asp-for="Age" class="control-label">AGE</label></b>
+                                                <input required asp-for="Age" class="form-control" />
+                                                <span asp-validation-for="Age" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <b><label asp-for="Gender" class="control-label">GENDER</label></b><br />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Gender" value="Male" id="maleRadio">
+                                                    <label class="form-check-label" for="maleRadio">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Gender" value="Female" id="femaleRadio">
+                                                    <label class="form-check-label" for="femaleRadio">Female</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Gender" value="Others" id="othersRadio">
+                                                    <label class="form-check-label" for="othersRadio">Others</label>
+                                                </div>
+                                                <span asp-validation-for="Gender" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <b><label asp-for="Eye" class="control-label"></label></b><br />
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Eye" value="Left Eye" id="leftEyeRadio">
+                                                    <label class="form-check-label" for="leftEyeRadio">LEFT EYE</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" asp-for="Eye" value="Right Eye" id="rightEyeRadio">
+                                                    <label class="form-check-label" for="rightEyeRadio">RIGHT EYE</label>
+                                                </div>
+                                                <span asp-validation-for="Eye" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <b><label asp-for="EyeImage" class="control-label">UPLOAD EYE IMAGE</label></b>
+                                                <input required asp-for="EyeImage" type="file" class="form-control" />
+                                                <span asp-validation-for="EyeImage" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <div class="form-group">
+                                                <br />
+                                                <input type="submit" value="SUBMIT" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-5">
+                            <div class="card">
+                                <div class="card-title ps-2 pt-2">
+                                    <h5>SUBSCRIPTION DETAILS</h5>
+                                    <hr />
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><strong>PACKAGE NAME:</strong> @(userSubscription?.PackageName ?? "Not Available")</li>
+                                        <li><strong>EXPIRY DATE:</strong> @(userSubscription?.ExpiresAt.HasValue == true ? userSubscription.ExpiresAt.Value.ToString("MM/dd/yyyy") : "Unlimited")</li>
+                                        <li><strong>PHOTO'S LEFT:</strong> @(userSubscription?.PhotoLimit.HasValue == true ? userSubscription.PhotoLimit.Value.ToString() : "Unlimited")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            }
+            else
+            {
+                <div class="alert alert-warning">
+                    <strong>No active subscription found.</strong> Please subscribe to a package to enable the form.
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="card m-3">
+        <div class="card-title p-3">
+            <h4>DIAGNOSIS HISTORY</h4>
+            <hr />
+        </div>
+        <div class="card-body">
+            <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Eye</th>
+                        <th>Date Time</th>
+                        <th>Result</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/datatable_userSubscription.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Check for success message in TempData
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage) {
+                toastr.success(successMessage);
+            }
+
+            // Check for error message in TempData
+            var errorMessage = '@TempData["ErrorMessage"]';
+            if (errorMessage) {
+                toastr.error(errorMessage);
+            }
+        });
+    </script>
+
+}
